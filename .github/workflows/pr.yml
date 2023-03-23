@@ -1,0 +1,24 @@
+name: PR Workflow for API Linting
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - edited
+
+jobs:
+  send-pull-events:
+    name: PR Workflow for API Linting
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+          
+      - name: Install Vacuum Lint
+        run: curl -fsSL https://quobix.com/scripts/install_vacuum.sh | sh
+
+      - name: Analyzing Proxy For Changed Files
+        run: |
+          bash ./.github/workflows/lint.sh 
+
